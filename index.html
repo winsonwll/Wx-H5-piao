@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires"content="0">
+    <title>卖票邦</title>
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+    <link rel="stylesheet" href="css/style.css?v-20170114">
+    <script type="text/javascript" src="js/check.js?v-20170125"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?3b1d2479b95063f80e4370064f561368";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current" id="page-index">
+        <header class="bar bar-nav">
+            	<a class="pull-left city-picker open-popup" data-popup=".popup-city" id="ID-city-picker">全国<i class="icon icon-down"></i></a>
+                <div class="search">
+                    <a href="search.html" external>
+                        <i class="icon icon-search"></i>
+                        搜索演出、明星、场馆</a>
+                </div>
+        </header>
+
+        <nav class="bar bar-tab">
+            <a class="tab-item external active" href="./index.html">
+                <span class="icon icon-home"></span>
+                <span class="tab-label">首页</span>
+            </a>
+            <a class="tab-item external" href="./search.html">
+                <span class="icon icon-app"></span>
+                <span class="tab-label">卖票</span>
+            </a>
+            <a class="tab-item external" href="./my.html">
+                <span class="icon icon-me"></span>
+                <span class="tab-label">我的</span>
+            </a>
+        </nav>
+
+        <div class="content infinite-scroll infinite-scroll-bottom" data-distance="100">
+            <div class="swiper-container" id="ID-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <a href="./show.html?sid=359" external>
+                            <img src="./images/slide05.jpg" width="100%">
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="./show.html?sid=357" external>
+                            <img src="./images/slide01.jpg" width="100%">
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="./show.html?sid=360" external>
+                            <img src="./images/slide02.jpg" width="100%">
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="./show.html?sid=1692" external>
+                            <img src="./images/slide04.jpg" width="100%">
+                        </a>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="piao-list">
+                <div class="content-block-title">热门推荐</div>
+                <div class="list-block media-list">
+                    <ul class="list-container" id="ID-show-list"></ul>
+                    <!-- 加载提示符 -->
+                    <div class="infinite-scroll-preloader">
+                        <div class="preloader"></div>
+                    </div>
+                </div>
+
+                <script id="Tpl-show-list" type="text/template">
+                        {@if len>0}
+                            {@each list as item}
+                            <li>
+                                <a href="./show.html?sid=${item[0]}" data-showid="${item[0]}" external>
+                                    <h2>${item[1]}</h2>
+                                    <div class="item-content">
+                                        <div class="item-media"><img src="${item[10]}"></div>
+                                        <div class="item-inner">
+                                            <div class="item-subtitle"><span>时间：</span>
+                                            {@if item[7] == item[8]}
+                                                ${item[7]|format}
+                                            {@else}
+                                                ${item[7]|format} - ${item[8]|format}
+                                            {@/if}
+                                            </div>
+                                            <div class="item-subtitle">
+                                                <span>场馆：</span>${item[4]}
+                                            </div>
+                                            <div class="item-subtitle">
+                                                <span>地点：</span>${item[3]}
+                                            </div>
+                                            <div class="item-tags">
+                                                {@if item[11]>0}
+                                                <span>${item[11]}个挂单</span>
+                                                {@/if}
+                                                <strong>$${item[9]|num}</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            {@/each}
+                        {@else}
+                        <div class="search-error">
+                            <dl>
+                                <dt><img src="images/i-search-error.png" style="width: 4rem"></dt>
+                                <dd>暂无相关演出</dd>
+                                <dd><a href="./addshow.html" class="button button-round button-big button-yellow" external>没找到演出？告诉我们</a></dd>
+                            </dl>
+                        </div>
+                        {@/if}
+                </script>
+            </div>
+
+            <div class="content-padded">
+                <div class="cprt">版权所有 YaoYi Copyright©2016 All Rights Reserved</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 定位城市 -->
+<div class="popup popup-city">
+    <header class="bar bar-nav">
+        <a class="icon icon-close pull-left close-popup">×</a>
+        <h1 class="title">城市选择</h1>
+    </header>
+
+    <div class="content">
+        <div class="list-block contacts-block">
+            <div class="list-group">
+                <ul>
+                    <li class="list-group-title">当前定位城市</li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title" style="color: #e41b46;" id="ID-city-cur">全国</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="list-group" id="ID-city-list">
+                <ul>
+                    <li class="list-group-title">热门城市</li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">全国</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">上海</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">北京</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">广州</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">深圳</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">天津</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">重庆</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">南京</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">苏州</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">无锡</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">宁波</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">成都</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">杭州</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">武汉</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">沈阳</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content-block">
+            <a href="./addshow.html" class="button button-round button-big button-light" external>没找到所在城市？告诉我们</a>
+        </div>
+    </div>
+</div>
+<script data-main="js/main" src="js/require.js?v-20170125" defer async="true"></script>
+</body>
+</html>

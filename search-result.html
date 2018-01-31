@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires"content="0">
+    <title>卖票邦</title>
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+    <link rel="stylesheet" href="css/style.css?v-20170114">
+    <script type="text/javascript" src="js/check.js?v-20170125"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?3b1d2479b95063f80e4370064f561368";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body>
+<div class="page-group">
+    <div class="page popup-search" id="page-search-result">
+        <header class="bar bar-nav bar-search">
+            <div class="searchbar row">
+                <a class="icon icon-left col-10 back" style="color: #b2b2b2; padding: .1rem; margin: 0 4% 0 0;"></a>
+                <div class="search-input col-90">
+                    <form id="ID-search-form" method="get" action="search-result.html">
+                        <label class="icon icon-search" for="search"></label>
+                        <input type="text" id="search" placeholder='搜索演出、明星、场馆' name="k"/>
+                        <span class="icon-clear btn-clear-keyword"></span>
+                    </form>
+                </div>
+            </div>
+        </header>
+
+        <div class="content infinite-scroll infinite-scroll-bottom" data-distance="100">
+            <div class="piao-list">
+                <div class="list-block media-list">
+                    <ul class="list-container" id="ID-show-list"></ul>
+                    <!-- 加载提示符 -->
+                    <div class="infinite-scroll-preloader">
+                        <div class="preloader"></div>
+                    </div>
+                </div>
+
+                <script id="Tpl-show-list" type="text/template">
+                    {@if len>0}
+                    {@each list as item}
+                    <li>
+                        <a href="./show.html?sid=${item[0]}" data-showid="${item[0]}" external>
+                            <h2>${item[1]}</h2>
+                            <div class="item-content">
+                                <div class="item-media"><img src="${item[10]}"></div>
+                                <div class="item-inner">
+                                    <div class="item-subtitle"><span>时间：</span>
+                                        {@if item[7] == item[8]}
+                                        ${item[7]|format}
+                                        {@else}
+                                        ${item[7]|format} - ${item[8]|format}
+                                        {@/if}
+                                    </div>
+                                    <div class="item-subtitle">
+                                        <span>场馆：</span>${item[4]}
+                                    </div>
+                                    <div class="item-subtitle">
+                                        <span>地点：</span>${item[3]}
+                                    </div>
+                                    <div class="item-tags">
+                                        {@if item[11]>0}
+                                        <span>${item[11]}个挂单</span>
+                                        {@/if}
+                                        <strong>$${item[9]|num}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {@/each}
+                    {@else}
+                    <div class="search-error">
+                        <dl>
+                            <dt><img src="images/i-search-error.png" style="width: 4rem"></dt>
+                            <dd>暂无相关演出</dd>
+                            <dd><a href="./addshow.html" class="button button-round button-big button-yellow" external>没找到演出？告诉我们</a></dd>
+                        </dl>
+                    </div>
+                    {@/if}
+                </script>
+            </div>
+
+            <div class="content-padded">
+                <div class="cprt">版权所有 YaoYi Copyright©2016 All Rights Reserved</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script data-main="js/main" src="js/require.js?v-20170125" defer async="true"></script>
+</body>
+</html>

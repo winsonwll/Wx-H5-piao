@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires"content="0">
+    <title>卖票邦</title>
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+    <link rel="stylesheet" href="css/style.css?v-20170114">
+    <script type="text/javascript" src="js/check.js?v-20170125"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?3b1d2479b95063f80e4370064f561368";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current" id="page-show">
+        <header class="bar bar-nav">
+            <a class="icon icon-left pull-left back"></a>
+            <a class="icon icon-search pull-right" href="./search.html"></a>
+            <h1 class="title">演出挂单</h1>
+        </header>
+
+        <nav class="bar bar-footer">
+            <a href="javascript:;" id="ID-sell" external>我要卖票</a>
+        </nav>
+
+        <div class="content infinite-scroll infinite-scroll-bottom" data-distance="100">
+            <div class="detail-wrap">
+                <div class="show-header" id="ID-deal"></div>
+
+                <script id="Tpl-show-info" type="text/template">
+                    <div class="content-padded">
+                        <h2>${list.showName}</h2>
+                        <div class="row">
+                            <div class="col-30">
+                                <img src="${list.photo}" width="100%">
+                            </div>
+                            <div class="col-70">
+                                <ul>
+                                    <li><span>¥</span>${list.minPrice}-${list.maxPrice} 元</li>
+                                    <li><img src="./images/i-calendar.png">
+                                        {@if list.start == list.end}
+                                        ${list.start|format}
+                                        {@else}
+                                        ${list.start|format} - ${list.end|format}
+                                        {@/if}
+                                    </li>
+                                    <li><img src="./images/i-venue.png">${list.place}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blurbox">
+                        <img src="${list.photo}" width="100%">
+                    </div>
+                    <div class="overlaybox">
+                        <img src="images/blur-bg.png" width="100%">
+                    </div>
+                    <div class="shadow"></div>
+                </script>
+
+                <div class="ticket-select">
+                    <div class="ticket-box cur" id="ID-showTime-picker">
+                        <div>选择场次</div>
+                        <span class="icon icon-caret"></span>
+                    </div>
+                    <div class="line"></div>
+                    <div class="ticket-box" id="ID-showPrice-picker">
+                        <div>选择票价</div>
+                        <span class="icon icon-caret"></span>
+                    </div>
+                </div>
+
+                <div class="list-block media-list">
+                    <ul class="list-container" id="ID-order-list"></ul>
+                    <!-- 加载提示符 -->
+                    <div class="infinite-scroll-preloader">
+                        <div class="preloader"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-padded">
+                <div class="cprt">版权所有 YaoYi Copyright©2016 All Rights Reserved</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 挂单详情 -->
+<div class="popup" id="ID-popup-order">
+    <header class="bar bar-nav">
+        <a class="icon icon-close pull-left close-popup">×</a>
+        <h1 class="title">挂单详情</h1>
+    </header>
+
+    <nav class="bar bar-footer">
+        <a href="javascript:;" id="ID-tel">
+            <span class="icon icon-phone"></span> 立即联系
+        </a>
+    </nav>
+
+    <div class="content">
+        <div class="order-detail" id="ID-order-detail"></div>
+
+        <script id="Tpl-order-detail" type="text/template">
+            <div class="list-block media-list">
+                <ul>
+                    <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">${list.showName}</div>
+                                </div>
+                            <div class="item-text">${list.venueName}</div>
+                        </div>
+                    </div>
+                </li>
+                </ul>
+            </div>
+            <div class="content-block-title">已被浏览次数：${list.views}</div>
+            <div class="list-block">
+                <ul>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">商家</div>
+                            <div class="item-after">${list.userRealName}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">场次</div>
+                            <div class="item-after">${list.showTime|format}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">票价</div>
+                            <div class="item-after">¥${list.areaName}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">同行价</div>
+                            <div class="item-after" style="color: #ff2661">¥${list.perPrice}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">剩余张数</div>
+                            <div class="item-after" style="color: #ff2661">${leave}</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="list-block hide" style="margin-top: 1rem" id="ID-feedback-bar">
+                <ul>
+                    <li>
+                        <a href="feedback.html" class="item-content item-link" external>
+                            <div class="item-inner">
+                                <div class="item-title">意见反馈</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </script>
+    </div>
+</div>
+<script data-main="js/main" src="js/require.js?v-20170125" defer async="true"></script>
+</body>
+</html>

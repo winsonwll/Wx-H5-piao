@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires"content="0">
+    <title>卖票邦</title>
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+    <link rel="stylesheet" href="css/style.css?v-20170114">
+    <script type="text/javascript" src="js/check.js?v-20170125"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?3b1d2479b95063f80e4370064f561368";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body>
+<div class="page-group">
+    <div class="page" id="page-myshow">
+        <header class="bar bar-nav">
+            <a class="icon icon-left pull-left back"></a>
+            <h1 class="title">我的挂单</h1>
+        </header>
+
+        <div class="content">
+            <div class="mypiao-list">
+                <div class="buttons-tab">
+                    <a href="#tab1" class="tab-link active button">进行中的挂单</a>
+                    <a href="#tab2" class="tab-link button">已下架的挂单</a>
+                </div>
+                <div class="tabs">
+                    <div id="tab1" class="tab active">
+                        <div class="content-padded">
+                            <ul class="row" id="ID-show-list-on"></ul>
+                            <!-- 加载提示符 -->
+                            <div class="infinite-scroll-preloader">
+                                <div class="preloader"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab2" class="tab">
+                        <div class="content-padded">
+                            <ul class="row" id="ID-show-list-off"></ul>
+                            <!-- 加载提示符 -->
+                            <div class="infinite-scroll-preloader">
+                                <div class="preloader"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--进行中的挂单-->
+                <script id="Tpl-show-list-on" type="text/template">
+                    {@if len>0}
+                    {@each list as item}
+                    <li class="col-50">
+                        <a href="./myorder.html?sid=${item[0]}&type=1" external>
+                            <div class="imgbox">
+                                <img src="${item[7]}" width="100%">
+                                <span>${item[8]}个挂单</span>
+                            </div>
+                            <div class="infobox">
+                                <h3>${item[1]}</h3>
+                            </div>
+                        </a>
+                    </li>
+                    {@/each}
+                    {@else}
+                    <div class="search-error">
+                        <dl>
+                            <dt><img src="images/i-search-error.png" style="width: 4rem"></dt>
+                            <dd>暂无进行中的挂单</dd>
+                            <dd><a href="./search.html" class="button button-round button-big button-yellow">我有票</a></dd>
+                        </dl>
+                    </div>
+                    {@/if}
+                </script>
+
+                <!--已下架的挂单-->
+                <script id="Tpl-show-list-off" type="text/template">
+                    {@if len>0}
+                    {@each list as item}
+                    <li class="col-50">
+                        <a href="./myorder.html?sid=${item[0]}&type=2" external>
+                            <div class="imgbox">
+                                <img src="${item[7]}" width="100%">
+                                <span>${item[8]}个挂单</span>
+                            </div>
+                            <div class="infobox">
+                                <h3>${item[1]}</h3>
+                            </div>
+                        </a>
+                    </li>
+                    {@/each}
+                    {@else}
+                    <div class="search-error">
+                        <dl>
+                            <dt><img src="images/i-search-error.png" style="width: 4rem"></dt>
+                            <dd>暂无已下架的挂单</dd>
+                            <dd><a href="./search.html" class="button button-round button-big button-yellow">我有票</a></dd>
+                        </dl>
+                    </div>
+                    {@/if}
+                </script>
+            </div>
+
+            <div class="content-padded">
+                <div class="cprt">版权所有 YaoYi Copyright©2016 All Rights Reserved</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script data-main="js/main" src="js/require.js?v-20170125" defer async="true"></script>
+</body>
+</html>

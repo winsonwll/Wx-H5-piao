@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires"content="0">
+    <title>卖票邦</title>
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+    <link rel="stylesheet" href="css/style.css?v-20170114">
+    <script type="text/javascript" src="js/check.js?v-20170125"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?3b1d2479b95063f80e4370064f561368";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-search" id="page-search">
+        <nav class="bar bar-tab">
+            <a class="tab-item external" href="./index.html">
+                <span class="icon icon-home"></span>
+                <span class="tab-label">首页</span>
+            </a>
+            <a class="tab-item external active" href="./search.html">
+                <span class="icon icon-app"></span>
+                <span class="tab-label">卖票</span>
+            </a>
+            <a class="tab-item external" href="./my.html">
+                <span class="icon icon-me"></span>
+                <span class="tab-label">我的</span>
+            </a>
+        </nav>
+
+        <div class="content">
+            <div class="searchbox">
+                <div class="search-top clearfix">
+                    <a class="pull-left city-picker open-popup" data-popup=".popup-city" id="ID-city-picker"><i class="icon-address"></i> 全国</a>
+                    <a class="pull-right" href="http://mp.weixin.qq.com/s?__biz=MzIyNDY5MzkyOA==&mid=100000003&idx=1&sn=d25b7d9ab1d5d8b7ed240e1ccc41fba3&chksm=680a5ac45f7dd3d2083741fc61224deef61b4856d914df2126831239ad6bd15da06905f5d38f&mpshare=1&scene=1&srcid=0110j5FxLBDA9ikzCCmyacaW#rd" external><i class="pull-right icon-gonglue"></i> 卖票<br>攻略</a>
+                </div>
+
+                <div class="search-input">
+                    <form id="ID-search-form">
+                        <label class="icon icon-search" for="search"></label>
+                        <input type="text" id="search" placeholder='搜索演出、明星、场馆'/>
+                        <span class="icon-clear btn-clear-keyword"></span>
+                    </form>
+                </div>
+            </div>
+
+            <div class="list-block">
+                <div class="list-group">
+                    <ul>
+                        <li class="list-group-title">热门搜索</li>
+                        <li>
+                            <div class="hot-search" id="ID-hot-search"></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="list-group" id="ID-record-list"></div>
+            </div>
+
+            <script id="Tpl-search-hot" type="text/template">
+                {@each list as item}
+                <a>${item}</a>
+                {@/each}
+            </script>
+
+            <script id="Tpl-record-list" type="text/template">
+                <ul>
+                    <li class="list-group-title">搜索记录</li>
+                    {@each list as item}
+                    <li class="item-content" data-record="${item}">
+                        <div class="item-inner">
+                            <div class="item-title">${item}</div>
+                            <div class="item-after"><span></span></div>
+                        </div>
+                    </li>
+                    {@/each}
+                </ul>
+                <div class="clear-all">清除搜索历史</div>
+            </script>
+
+            <div class="content-padded">
+                <div class="cprt">版权所有 YaoYi Copyright©2016 All Rights Reserved</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 定位城市 -->
+<div class="popup popup-city">
+    <header class="bar bar-nav">
+        <a class="icon icon-close pull-left close-popup">×</a>
+        <h1 class="title">城市选择</h1>
+    </header>
+
+    <div class="content">
+        <div class="list-block contacts-block">
+            <div class="list-group">
+                <ul>
+                    <li class="list-group-title">当前定位城市</li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title" style="color: #e41b46;" id="ID-city-cur">全国</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="list-group" id="ID-city-list">
+                <ul>
+                    <li class="list-group-title">热门城市</li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">全国</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">上海</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">北京</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">广州</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">深圳</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">天津</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">重庆</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">南京</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">苏州</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">无锡</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">宁波</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">成都</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">杭州</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">武汉</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">沈阳</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content-block">
+            <a href="./addshow.html" class="button button-round button-big button-light" external>没找到所在城市？告诉我们</a>
+        </div>
+    </div>
+</div>
+<script data-main="js/main" src="js/require.js?v-20170125" defer async="true"></script>
+</body>
+</html>
